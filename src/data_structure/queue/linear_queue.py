@@ -19,6 +19,8 @@ class LinearQueue():
 
     def enqueue(self, item):
         if self.is_full():
+            # TODO: Create more space for the container 
+            # when all the items now hitting the size
             print(f"Can not put the item {item} to the queue.")
             return
 
