@@ -8,17 +8,19 @@ class CircularQueue():
 
     def is_full(self):
         if (self.rear+1) % self.size == self.front:
+            print("The queue is full.")
             return True
         return False
 
     def is_empty(self):
         if self.front == self.rear == -1:
+            print("The queue is empty.")
             return True
         return False
 
     def enqueue(self, item):
         if self.is_full():
-            print(f"Can not put the item {item} to the queue, the queue is full.")
+            print(f"Can not put the item {item} to the queue.")
             return
 
         if self.is_empty():
@@ -31,7 +33,8 @@ class CircularQueue():
 
     def dequeue(self):
         if self.is_empty():
-            print("There is no more item that can be taken, the queue is empty.")
+            print("There is no more item that can be taken.")
+            return
 
         item = self.container[self.front]
         if item is None:
