@@ -1,41 +1,72 @@
+from typing import List
+
+
 class Node():
-    def __init__(self, item):
+    def __init__(self, val):
         self.left = None
         self.right = None
-        self.item = item
+        self.val = val
 
-    def inorder(self):
-        if self.item:
-            if self.left:
-                self.left.inorder()
 
-            print(f"{self.item} -> ", end='')
+def inorder(root: Node, result: List[int] = None):
+    if result is None:
+        result = []
 
-            if self.right:
-                self.right.inorder()
-        return
+    if root:
+        if root.left:
+            inorder(root.left, result)
 
-    def preorder(self):
-        if self.item:
-            print(f"{self.item} -> ", end='')
+        result.append(root.val)
 
-        if self.left:
-            self.left.preorder()
+        if root.right:
+            inorder(root.right, result)
 
-        if self.right:
-            self.right.preorder()
-        return
+    return result
 
-    def postorder(self):
-        if self.item:
-            if self.left:
-                self.left.inorder()
 
-            if self.right:
-                self.right.inorder()
+def preorder(root: Node, result: List[int] = None):
+    if result is None:
+        result = []
 
-            print(f"{self.item} -> ", end='')
-        return
+    if root:
+        result.append(root.val)
+
+    if root.left:
+        preorder(root.left, result)
+
+    if root.right:
+        preorder(root.right, result)
+
+    return result
+
+
+def postorder(root: Node, result: List[int] = None):
+    if result is None:
+        result = []
+
+    if root:
+        if root.left:
+            postorder(root.left, result)
+
+        if root.right:
+            postorder(root.right, result)
+
+        result.append(root.val)
+
+    return result
+
+
+def is_full(root):
+    if root is None:
+        return True
+
+    if root.left is None and root.right is None:
+        return True
+
+    if root.left is not None and root.right is not None:
+        return is_full(root.left) and is_full(root.right)
+
+    return False
 
 
 if __name__ == "__main__":
@@ -44,10 +75,12 @@ if __name__ == "__main__":
     node.right = Node(3)
     node.left.left = Node(4)
     node.left.right = Node(5)
-    
+
     print("inorder")
-    node.inorder()
-    print("\npreorder")
-    node.preorder()
-    print("\npostorder")
-    node.postorder()
+    print(inorder(node))
+    print("preorder")
+    print(preorder(node))
+    print("postorder")
+    print(postorder(node))
+    print("Is it full?")
+    print(is_full(node))
