@@ -1,14 +1,13 @@
 from typing import List
 
 
-class Node():
+class BinaryTreeNode():
     def __init__(self, val):
+        self.val = val
         self.left = None
         self.right = None
-        self.val = val
 
-
-def inorder(root: Node, result: List[int] = None):
+def inorder(root: BinaryTreeNode, result: List[int] = None):
     if result is None:
         result = []
 
@@ -24,7 +23,7 @@ def inorder(root: Node, result: List[int] = None):
     return result
 
 
-def preorder(root: Node, result: List[int] = None):
+def preorder(root: BinaryTreeNode, result: List[int] = None):
     if result is None:
         result = []
 
@@ -40,7 +39,7 @@ def preorder(root: Node, result: List[int] = None):
     return result
 
 
-def postorder(root: Node, result: List[int] = None):
+def postorder(root: BinaryTreeNode, result: List[int] = None):
     if result is None:
         result = []
 
@@ -70,11 +69,11 @@ def is_full(root):
 
 
 if __name__ == "__main__":
-    node = Node(1)
-    node.left = Node(2)
-    node.right = Node(3)
-    node.left.left = Node(4)
-    node.left.right = Node(5)
+    node = BinaryTreeNode(1)
+    node.left = BinaryTreeNode(2)
+    node.right = BinaryTreeNode(3)
+    node.left.left = BinaryTreeNode(4)
+    node.left.right = BinaryTreeNode(5)
 
     print("inorder")
     print(inorder(node))
