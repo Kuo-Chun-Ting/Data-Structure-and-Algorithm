@@ -5,24 +5,19 @@ class BinarySearchTreeNode():
         self.right: BinarySearchTreeNode = None
 
 
-def insert_key(node: BinarySearchTreeNode, key: int) -> BinarySearchTreeNode:
+def insert(node: BinarySearchTreeNode, key: int):
     if node is None:
-        raise TypeError("The node should not be None.")
+        return BinarySearchTreeNode(key)
 
-    if key <= node.key:
-        if node.left is None:
-            node.left = BinarySearchTreeNode(key)
-        else:
-            insert_key(node.left, key)
-
+    if key < node.key:
+        node.left = insert(node.left, key)
     else:
-        if node.right is None:
-            node.right = BinarySearchTreeNode(key)
-        else:
-            insert_key(node.right, key)
+        node.right = insert(node.right, key)
+        
+    return node
 
 
-def search_key(node: BinarySearchTreeNode, key: int)  -> int:
+def search(node: BinarySearchTreeNode, key: int) -> int:
     if key == node.key:
         return node.key
 
@@ -30,22 +25,22 @@ def search_key(node: BinarySearchTreeNode, key: int)  -> int:
         if node.left is None:
             return None
         else:
-            return search_key(node.left, key)
+            return search(node.left, key)
     else:
         if node.right is None:
             return None
         else:
-            return search_key(node.right, key)
+            return search(node.right, key)
 
 
-def delete_key(node: BinarySearchTreeNode, key: int) -> BinarySearchTreeNode:
+def delete(node: BinarySearchTreeNode, key: int) -> BinarySearchTreeNode:
     if node is None:
         return None
 
     if key < node.key:
-        node.left = delete_key(node.left, key)
+        node.left = delete(node.left, key)
     elif key > node.key:
-        node.right = delete_key(node.right, key)
+        node.right = delete(node.right, key)
     else:
         if node.left is None:
             temp = node.right
@@ -58,7 +53,7 @@ def delete_key(node: BinarySearchTreeNode, key: int) -> BinarySearchTreeNode:
 
         successor_key = get_min_key(node.right)
         node.key = successor_key
-        node.right = delete_key(node.right, successor_key)
+        node.right = delete(node.right, successor_key)
     return node
 
 
@@ -71,31 +66,31 @@ def get_min_key(node: BinarySearchTreeNode) -> int:
 
 if __name__ == "__main__":
     node = BinarySearchTreeNode(5)
-    insert_key(node, 3)
-    insert_key(node, 15)
-    insert_key(node, 26)
-    insert_key(node, 7)
-    insert_key(node, 1)
-    insert_key(node, 2)
-    insert_key(node, 9)
+    insert(node, 3)
+    insert(node, 15)
+    insert(node, 26)
+    insert(node, 7)
+    insert(node, 1)
+    insert(node, 2)
+    insert(node, 9)
 
     print("search key for 5")
-    print(search_key(node, 5))
+    print(search(node, 5))
 
     print("search key for 15")
-    print(search_key(node, 15))
+    print(search(node, 15))
 
     print("search key for 100")
-    print(search_key(node, 100))
+    print(search(node, 100))
 
     print("delete the key 3")
-    print(delete_key(node, 3))
+    print(delete(node, 3))
 
     print("search key for 3")
-    print(search_key(node, 3))
+    print(search(node, 3))
 
     print("delete the key 2")
-    print(delete_key(node, 2))
+    print(delete(node, 2))
 
     print("search key for 2")
-    print(search_key(node, 2))
+    print(search(node, 2))
