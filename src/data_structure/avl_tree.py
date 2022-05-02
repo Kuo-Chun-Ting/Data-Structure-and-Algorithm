@@ -1,6 +1,3 @@
-import re
-
-
 class AVLTreeNode():
     def __init__(self, key):
         self.key: int = key
