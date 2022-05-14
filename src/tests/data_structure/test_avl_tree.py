@@ -2,7 +2,8 @@ from data_structure.avl_tree import (
     AVLTreeNode,
     get_height,
     get_balance_factor,
-    insert
+    insert,
+    delete
 )
 
 
@@ -165,3 +166,63 @@ def test_insert_when_3_level_tree():
     assert root.left.key == 13
     assert root.right.key == 53
     assert root.left.left.key == 9
+
+
+def test_delete_when_node_none_then_return_none():
+    # Arrange
+    root = None
+
+    # Act
+    root = delete(root, 33)
+
+    # Assert
+    assert root == None
+
+
+def test_delete_when_1_level_tree():
+    # Arrange
+    root = None
+    root = insert(root, 33)
+
+    # Act
+    root = delete(root, 33)
+
+    # Assert
+    assert root == None
+
+
+def test_delete_when_2_level_tree():
+    # Arrange
+    root = None
+    root = insert(root, 33)
+    root = insert(root, 13)
+    root = insert(root, 53)
+
+    # Act
+    root = delete(root, 13)
+
+    # Assert
+    assert root.key == 33
+    assert root.left == None
+    assert root.right.key == 53
+
+
+def test_delete_when_3_level_tree():
+    # Arrange
+    root = None
+    root = insert(root, 33)
+    root = insert(root, 13)
+    root = insert(root, 53)
+    root = insert(root, 9)
+    root = insert(root, 21)
+    root = insert(root, 61)
+
+    # Act
+    root = delete(root, 13)
+
+    # Assert
+    assert root.key == 33
+    assert root.left.key == 21
+    assert root.right.key == 53
+    assert root.left.left.key == 9
+    assert root.right.right.key == 61

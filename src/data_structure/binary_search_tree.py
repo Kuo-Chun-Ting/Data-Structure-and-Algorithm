@@ -13,7 +13,7 @@ def insert(node: BinarySearchTreeNode, key: int):
         node.left = insert(node.left, key)
     else:
         node.right = insert(node.right, key)
-        
+
     return node
 
 

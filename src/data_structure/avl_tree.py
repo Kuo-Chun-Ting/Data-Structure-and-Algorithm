@@ -16,10 +16,7 @@ def insert(node: AVLTreeNode, key: int):
     elif key > node.key:
         node.right = insert(node.right, key)
 
-    left_child_height = get_height(node.left)
-    right_child_height = get_height(node.right)
-    max_height = max(left_child_height, right_child_height)
-    node.height = 1 + max_height
+    node.height = 1 + max(get_height(node.left), get_height(node.right))
     balance_factor = get_balance_factor(node)
 
     if balance_factor > 1:
@@ -54,7 +51,7 @@ def left_rotate(node: AVLTreeNode) -> AVLTreeNode:
         right_child.left = node
         node.height = 1 + max(get_height(node.left), get_height(node.right))
         right_child.height = 1 + \
-            max(get_height(right_child.left),get_height(right_child.right))
+            max(get_height(right_child.left), get_height(right_child.right))
         return right_child
     return node
 
@@ -71,13 +68,55 @@ def right_rotate(node: AVLTreeNode) -> AVLTreeNode:
     return node
 
 
+def delete(node: AVLTreeNode, key: int) -> AVLTreeNode:
+    if node == None:
+        return None
+
+    if key < node.key:
+        node.left = delete(node.left, key)
+    elif key > node.key:
+        node.right = delete(node.right, key)
+    else:
+        if node.left is None:
+            temp = node.right
+            node = None
+            return temp
+        elif node.right is None:
+            temp = node.left
+            node = None
+            return temp
+        
+        temp = node.right
+        node.key = temp.key
+        node.right = delete(node.right, temp.key)
+    
+    if node is None:
+        return node
+    
+    node.height = 1 + max(get_height(node.left), get_height(node.right))
+    balance_factor = get_balance_factor(node)
+
+    if balance_factor > 1:
+        if key > node.left.key:
+            node.left = left_rotate(node.left)
+        return right_rotate(node)
+
+    if balance_factor < -1:
+        if key < node.right.key:
+            node.right = right_rotate(node.right)
+        return left_rotate(node)
+    
+    return node
+
+
 if __name__ == "__main__":
     node = AVLTreeNode(33)
     insert(node, 13)
-    insert(node, 53)
-    insert(node, 11)
-    insert(node, 21)
-    insert(node, 61)
-    insert(node, 8)
-    insert(node, 9)
+    node = delete(node, 13)
+    # insert(node, 53)
+    # insert(node, 11)
+    # insert(node, 21)
+    # insert(node, 61)
+    # insert(node, 8)
+    # insert(node, 9)
     print(node.height)
