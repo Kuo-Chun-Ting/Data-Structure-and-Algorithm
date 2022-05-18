@@ -1,5 +1,3 @@
-import pytest
-
 from data_structure.binary_tree import BinaryTreeNode, inorder, is_full, preorder, postorder
 
 
