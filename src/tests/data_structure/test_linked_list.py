@@ -186,7 +186,7 @@ def test_search_data_when_data_not_existing_then_return_false():
     assert is_existing == False
 
 
-def test_search_data_when_data_not_existing_then_return_false():
+def test_sort_when_no_duplicate_key_then_return_ascending_order():
     # Arrange
     linked_list = LinkedList()
     linked_list.insert_at_end(-2)
@@ -196,7 +196,7 @@ def test_search_data_when_data_not_existing_then_return_false():
     linked_list.insert_at_end(45)
 
     # Act
-    is_existing = linked_list.sort()
+    linked_list.sort()
 
     # Assert
     assert linked_list.head.data == -9
