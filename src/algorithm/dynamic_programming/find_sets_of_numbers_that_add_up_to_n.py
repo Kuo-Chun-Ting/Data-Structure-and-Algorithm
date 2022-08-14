@@ -1,9 +1,15 @@
-def find_sets_of_num_add_up_to_n(arr, n):
+from typing import Dict, List
+
+
+# 1. No negative number in the given set
+# 2. The numbers in the given set are sorted
+
+def find_sets_of_num_add_up_to_n(arr: List[int], n: int):
     mem = {}
     return dp(arr, n, len(arr)-1, mem)
 
 
-def dp(arr, total, i, mem):
+def dp(arr: List[int], total: int, i: int, mem: Dict[str, int]):
     key = f"{total}:{i}"
     if mem.get(key) is not None:
         return mem[key]
